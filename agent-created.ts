@@ -13,7 +13,7 @@ import {
   signerToSessionKeyValidator,
 } from "@zerodev/session-key";
 import { ENTRYPOINT_ADDRESS_V06 } from "permissionless";
-import { Address, Hex, createPublicClient, http } from "viem";
+import { Address, Hex, createPublicClient, http, pad } from "viem";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 import { sepolia } from "viem/chains";
 
@@ -94,6 +94,7 @@ const useSessionKey = async (
 
   const userOpHash = await kernelClient.sendTransaction({
     to: process.env.RECIPIENT_ADDRESS as Hex,
+    data: pad("0x", { size: 4 }),
     value: BigInt(1),
   });
 
